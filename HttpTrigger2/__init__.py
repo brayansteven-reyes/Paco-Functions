@@ -1,0 +1,41 @@
+import logging
+import azure.functions as func
+import json
+from .. import connection
+
+
+def main(req: func.HttpRequest) -> func.HttpResponse:
+    logging.info('Python HTTP trigger function processed a request.')
+    department = req.route_params.get('department')
+    year = req.params.get('year')
+    if not year:
+        year = '1990'
+    logging.info('year:'+year)
+    if department:
+        logging.info('departments:'+department)
+        query_result =  connection.query_db(f"""Select DEPARTAMENTO as department,
+                                year(FECHA_FIRMA_CONTRATO) as year, 
+                                count(*) as count,
+                                CAST(sum(VALOR_TOTAL_CONTRATO) AS UNSIGNED) as total
+                                from contratos 
+                                where DEPARTAMENTO = '{department.upper()}' 
+                                and year(FECHA_FIRMA_CONTRATO)>'{year}'
+                                group by DEPARTAMENTO,year(FECHA_FIRMA_CONTRATO) 
+                                order by DEPARTAMENTO, year asc;""")
+        
+    else:
+        query_result =  connection.query_db(f"""Select DEPARTAMENTO as department,
+                                year(FECHA_FIRMA_CONTRATO) as year, 
+                                count(*) as count,
+                                CAST(sum(VALOR_TOTAL_CONTRATO) AS UNSIGNED) as total
+                                from contratos 
+                                where  year(FECHA_FIRMA_CONTRATO)>'{year}'
+                                group by DEPARTAMENTO,year(FECHA_FIRMA_CONTRATO) 
+                                order by DEPARTAMENTO, year asc;""")
+    result_str = json.dumps(query_result)
+    func.HttpResponse.mimetype = 'application/json'
+    func.HttpResponse.charset = 'utf-8'
+    return func.HttpResponse(
+            result_str,
+            status_code=200
+    )
