@@ -1,4 +1,4 @@
-GET http://localhost:7071/api/secop/contractor/tolima?order=desc&sort=total
+GET http://localhost:7071/api/secop/processType/tolima?order=desc&sort=total
 
 <!--
 
@@ -8,6 +8,10 @@ GET http://localhost:7071/api/secop/departments/tolima
 
 GET http://localhost:7071/api/secop/contractor/tolima
 
-GET http://localhost:7071/api/secop/entity/tolima
+GET http://localhost:7071/api/secop/entity/tolima     
+
+GET http://localhost:7071/api/secop/processType/tolima
+
+GET http://localhost:7071/api/secop/contractType/tolima
 
 -->
