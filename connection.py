@@ -13,7 +13,7 @@ def get_ssl_cert():
 def query_db(query, args=(), one=False):
     user_name_db = os.environ["pacoDBUser"]
     password_db = os.environ["pacoDBPassword"]
-
+    
     cnx = mysql.connector.connect(
         user=user_name_db, 
         password=password_db, 

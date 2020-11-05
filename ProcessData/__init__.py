@@ -233,9 +233,15 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     os.remove(master_file_path)
     os.remove(data_file_path)
     os.remove(upload_file_path)
-
+    result_str = {'status':'ok'}
+    func.HttpResponse.mimetype = 'application/json'
+    func.HttpResponse.charset = 'utf-8'
+    return func.HttpResponse(
+            result_str,
+            status_code=200
+    )
     
-    name = req.params.get('name')
+    """name = req.params.get('name')
     if not name:
         try:
             req_body = req.get_json()
@@ -250,4 +256,4 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
              status_code=200
-        )
+        )"""
