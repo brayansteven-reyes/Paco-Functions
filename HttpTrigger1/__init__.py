@@ -9,6 +9,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     department = req.route_params.get('department')
     municipality = req.route_params.get('municipality')
 
+    year = req.params.get('year')
     order = req.params.get('order')
     sort = req.params.get('sort')
     sort_values = ['count','total']
