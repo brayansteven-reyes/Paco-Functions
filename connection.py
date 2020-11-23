@@ -16,7 +16,7 @@ def query_db(query, args=(), one=False):
     cnx = mysql.connector.connect(
         user=user_name_db, 
         password=password_db, 
-        host="pacodb.mysql.database.azure.com", 
+        host="db-paco.mysql.database.azure.com", 
         port=3306,
         database='paco',
         ssl_ca=get_ssl_cert()

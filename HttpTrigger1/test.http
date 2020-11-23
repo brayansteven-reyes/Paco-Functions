@@ -1,4 +1,4 @@
-GET http://localhost:7071/api/secop/processType/tolima?order=desc&sort=total
+GET http://localhost:7071/api/secop/contractType/arauca
 
 <!--
 

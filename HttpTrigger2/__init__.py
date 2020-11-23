@@ -28,27 +28,26 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if department:
         query_result =  connection.query_db(f"""Select DEPARTAMENTO as department,
-                                year(FECHA_FIRMA_CONTRATO) as year, 
+                                yyyy as year, 
                                 count(*) as count,
                                 CAST(sum(VALOR_TOTAL_CONTRATO) AS UNSIGNED) as total
                                 from contratos 
                                 where DEPARTAMENTO = '{department.upper()}' 
-                                and year(FECHA_FIRMA_CONTRATO)>'{year}'
+                                and yyyy >'{year}'
                                 group by department, year
                                 order by {sort.lower()} {order};""")
         
     else:
         query_result =  connection.query_db(f"""Select DEPARTAMENTO as department,
-                                year(FECHA_FIRMA_CONTRATO) as year, 
+                                yyyy as year, 
                                 count(*) as count,
                                 CAST(sum(VALOR_TOTAL_CONTRATO) AS UNSIGNED) as total
                                 from contratos 
-                                where  year(FECHA_FIRMA_CONTRATO)>'{year}'
+                                where  yyyy>'{year}'
                                 group by department, year
                                 order by {sort.lower()} {order};""")
     result_str = json.dumps(query_result)
-    func.HttpResponse.mimetype = 'application/json'
-    func.HttpResponse.charset = 'utf-8'
+    
     return func.HttpResponse(
             result_str,
             status_code=200

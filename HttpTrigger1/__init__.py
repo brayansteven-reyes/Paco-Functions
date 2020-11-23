@@ -64,8 +64,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                                 group by department,municipality, year  
                                 order by {sort.lower()} {order};""")
     result_str = json.dumps(query_result)
-    func.HttpResponse.mimetype = 'application/json'
-    func.HttpResponse.charset = 'utf-8'
+    
     return func.HttpResponse(
             result_str,
             status_code=200

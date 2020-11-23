@@ -10,6 +10,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     year = req.params.get('year')
     order = req.params.get('order')
     sort = req.params.get('sort')
+    limit = req.params.get('limit')
     sort_values = ['count','total']
     order_values = ['asc','desc']
 
@@ -26,18 +27,29 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     else:
         order = 'desc'
 
-    query_result =  connection.query_db(f"""Select RAZON_SOCIAL_CONTRATISTA as contractor,
-                            count(*) as count,
-                            CAST(sum(VALOR_TOTAL_CONTRATO) AS UNSIGNED) as total
-                            from contratos 
-                            where DEPARTAMENTO = '{department.upper()}'
-                            and year(FECHA_FIRMA_CONTRATO)>'{year}'
-                            group by RAZON_SOCIAL_CONTRATISTA 
-                            order by {sort.lower()} {order};""")
+    if not limit:
+        query_result =  connection.query_db(f"""Select RAZON_SOCIAL_CONTRATISTA as contractor,
+                                count(*) as count,
+                                CAST(sum(VALOR_TOTAL_CONTRATO) AS UNSIGNED) as total
+                                from contratos 
+                                where DEPARTAMENTO = '{department.upper()}'
+                                and year(FECHA_FIRMA_CONTRATO)>'{year}'
+                                group by RAZON_SOCIAL_CONTRATISTA 
+                                order by {sort.lower()} {order} 
+                                ;""")
+    else:
+                query_result =  connection.query_db(f"""Select RAZON_SOCIAL_CONTRATISTA as contractor,
+                                count(*) as count,
+                                CAST(sum(VALOR_TOTAL_CONTRATO) AS UNSIGNED) as total
+                                from contratos 
+                                where DEPARTAMENTO = '{department.upper()}'
+                                and year(FECHA_FIRMA_CONTRATO)>'{year}'
+                                group by RAZON_SOCIAL_CONTRATISTA 
+                                order by {sort.lower()} {order} 
+                                limit  {limit};""")
         
     result_str = json.dumps(query_result)
-    func.HttpResponse.mimetype = 'application/json'
-    func.HttpResponse.charset = 'utf-8'
+    
     return func.HttpResponse(
             result_str,
             status_code=200
