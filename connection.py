@@ -7,7 +7,6 @@ import os
 def get_ssl_cert():
     current_path = pathlib.Path(__file__).parent
     certificate = str (current_path / "BaltimoreCyberTrustRoot.crt.pem")
-    logging.info('----------------------- PATH -------------'+ certificate )
     return certificate
 
 def query_db(query, args=(), one=False):

@@ -10,7 +10,7 @@ import sqlalchemy
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info('Python HTTP trigger function processed a request.')
+    
     # Variables
     tableName =  "contratos"
     dataURL = "https://www.datos.gov.co/resource/jbjy-vk9h.csv?$limit=100000"
@@ -36,9 +36,15 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             name = req_body.get('name')
 
     if name:
-        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
+    
+    func.HttpResponse.mimetype = 'application/json'
+    func.HttpResponse.charset = 'utf-8'
+    return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
     else:
-        return func.HttpResponse(
+    
+    func.HttpResponse.mimetype = 'application/json'
+    func.HttpResponse.charset = 'utf-8'
+    return func.HttpResponse(
              f"This, {out}. HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
              status_code=200
         )

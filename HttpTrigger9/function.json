@@ -6,8 +6,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": ["get"],
-      "route": "secop/status_contracts/{database:?}"
+      "methods": ["get"]
     },
     {
       "type": "http",

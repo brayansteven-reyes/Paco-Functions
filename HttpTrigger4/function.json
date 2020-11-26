@@ -7,7 +7,7 @@
       "direction": "in",
       "name": "req",
       "methods": ["get"],
-      "route": "secop/entity/{department}"
+      "route": "secop/list_contractors"
     },
     {
       "type": "http",

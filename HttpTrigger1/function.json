@@ -7,7 +7,7 @@
       "direction": "in",
       "name": "req",
       "methods": ["get"],
-      "route": "secop/municipalities/{department:?}/{municipality:?}"
+      "route": "secop/list_departments"
     },
     {
       "type": "http",
