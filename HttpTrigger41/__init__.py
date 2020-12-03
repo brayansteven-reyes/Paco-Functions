@@ -14,16 +14,14 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     limits = query_utils.getCommontLimit(req)
 
     if entity:
-        conditions += f" AND NOMBRE_ENTIDAD = '{entity.upper()}' "
+        conditions += f" AND nombre_entidad = '{entity.upper()}' "
 
-    query = f"""select NOMBRE_ENTIDAD as entity,
-                year,
-                CAST(sum(count) AS UNSIGNED) as count,
-                CAST(sum(total) AS UNSIGNED) as total
-                from v_secop_entities
+    query = f"""select nombre_entidad as entity,
+                count(*) as count 
+                from multas_secop
                 where 1=1
                 {conditions}
-                group by 1,2
+                group by 1
                 {order_by} 
                 {limits};"""
 

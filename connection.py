@@ -26,3 +26,21 @@ def query_db(query, args=(), one=False):
                for i, value in enumerate(row)) for row in cur.fetchall()]
     cnx.close()
     return (r[0] if r else None) if one else r
+
+def insert_db(query, args=(), one=False):
+    user_name_db = os.environ["pacoDBUser"]
+    password_db = os.environ["pacoDBPassword"]
+    cnx = mysql.connector.connect(
+        user=user_name_db, 
+        password=password_db, 
+        host="db-paco.mysql.database.azure.com", 
+        port=3306,
+        database='paco',
+        ssl_ca=get_ssl_cert()
+    )
+    cur =  cnx.cursor()
+    cur.execute(query)
+    complaint_no = cur.lastrowid
+    cnx.commit()
+    cnx.close()
+    return complaint_no

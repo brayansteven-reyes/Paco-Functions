@@ -6,27 +6,26 @@ from .. import query_utils
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    entity = req.route_params.get('entity')
-    sort_values = ['ENTITY', 'COUNT', 'TOTAL']
+    contractor_id = req.route_params.get('contractor')    
+    sort_values = ['DEPARMENT', 'MUNICIPALITY','COUNT','TOTAL']
 
     conditions = query_utils.getCommonCondtions(req)
     order_by = query_utils.getCommontOrderBy(req, sort_values, sort_values[1])
     limits = query_utils.getCommontLimit(req)
 
-    if entity:
-        conditions += f" AND NOMBRE_ENTIDAD = '{entity.upper()}' "
+    if contractor_id:
+        conditions += f" AND ID_CONTRATISTA = '{contractor_id.upper()}' "
 
-    query = f"""select NOMBRE_ENTIDAD as entity,
-                year,
-                CAST(sum(count) AS UNSIGNED) as count,
-                CAST(sum(total) AS UNSIGNED) as total
-                from v_secop_entities
+    query = f"""select departamento as department, 
+                municipio as municipality,
+                count(*) as count,
+                CAST(sum(VALOR_TOTAL_CONTRATO) AS UNSIGNED) as total
+                from contratos 
                 where 1=1
                 {conditions}
-                group by 1,2
+                group by 1,2 
                 {order_by} 
                 {limits};"""
-
     query_result = connection.query_db(query)
     result_str = json.dumps(query_result)
 

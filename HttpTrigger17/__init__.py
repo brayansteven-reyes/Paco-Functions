@@ -1,6 +1,6 @@
 import logging
 import azure.functions as func
-import json
+import simplejson as json
 from .. import connection
 from .. import query_utils
 

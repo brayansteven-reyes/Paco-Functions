@@ -6,12 +6,20 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": ["get"]
+      "methods": ["post"],
+      "route": "denuncia"
     },
     {
       "type": "http",
       "direction": "out",
       "name": "$return"
+    },
+    {
+      "type": "sendGrid",
+      "name": "sendGridMessage",
+      "direction": "out",
+      "apiKey": "SendGrid_API_Key",
+      "from": "ing.brayan.reyes@gmail.com"
     }
   ]
 }

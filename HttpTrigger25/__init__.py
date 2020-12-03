@@ -1,6 +1,6 @@
 import logging
 import azure.functions as func
-import json
+import simplejson as json
 from .. import connection
 from .. import query_utils
 
@@ -14,7 +14,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     limits = query_utils.getCommontLimit(req)
 
     if entity:
-        conditions += f" AND NIT_ENTIDAD = '{entity.upper()}' "
+        conditions += f" AND NOMBRE_ENTIDAD = '{entity.upper()}' "
 
     query = f"""Select RAZON_SOCIAL_CONTRATISTA as contractor,
                 count(*) as count,

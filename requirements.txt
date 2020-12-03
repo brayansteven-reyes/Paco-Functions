@@ -9,3 +9,4 @@ mysql-connector
 numpy
 pandas
 sqlalchemy
+simplejson

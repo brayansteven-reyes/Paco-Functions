@@ -1,6 +1,6 @@
 import logging
 import azure.functions as func
-import json
+import simplejson as json
 from .. import connection
 from .. import query_utils
 
@@ -17,12 +17,13 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         conditions += f" AND ID_CONTRATISTA = '{contractor_id.upper()}' "
 
     query = f"""select ID_CONTRATISTA as contractor_id,
+                year,
                 CAST(sum(count) AS UNSIGNED) as count,
                 CAST(sum(total) AS UNSIGNED) as total
                 from v_secop_contractor
                 where 1=1
                 {conditions}
-                group by 1
+                group by 1,2
                 {order_by} 
                 {limits};"""
     
