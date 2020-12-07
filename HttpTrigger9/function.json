@@ -18,7 +18,7 @@
       "type": "sendGrid",
       "name": "sendGridMessage",
       "direction": "out",
-      "apiKey": "SendGrid_API_Key",
+      "apiKey": "paco7sg7api7key",
       "from": "ing.brayan.reyes@gmail.com"
     }
   ]

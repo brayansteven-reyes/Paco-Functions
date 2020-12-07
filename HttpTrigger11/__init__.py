@@ -22,8 +22,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     query = f"""Select DEPARTAMENTO as department,
                 MUNICIPIO as municipality,
                 year, 
-                CAST(sum(count) AS UNSIGNED) as count,
-                CAST(sum(total) AS UNSIGNED) as total
+                sum(count)  as count,
+                sum(total)  as total
                 from v_secop_departments 
                 where 1=1
                 {conditions}

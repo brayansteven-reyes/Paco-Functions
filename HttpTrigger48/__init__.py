@@ -6,29 +6,26 @@ from .. import query_utils
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    department = req.route_params.get('department')
-    sort_values = ['DEPARMENT', 'DATABASE', 'YEAR', 'COUNT', 'TOTAL']
+    contractor_id = req.route_params.get('contractor')   
+    sort_values = ['CONTRACTOR', 'COUNT']
 
-    conditions = query_utils.getCommonCondtions(req)
+    conditions = ''
     order_by = query_utils.getCommontOrderBy(req, sort_values, sort_values[1])
     limits = query_utils.getCommontLimit(req)
 
-    if department:
-        conditions += f" AND DEPARTAMENTO = '{department.upper()}'"
+    if contractor_id:
+        conditions += f" AND `Tipo y Num Docuemento`  = '{contractor_id.upper()}' "
 
-    query = f"""Select DEPARTAMENTO as department,
-                BASE_DE_DATOS as 'database',
-                sum(count)  as count,
-                sum(total)  as total
-                from v_secop_departments 
+    query = f"""select `Tipo y Num Docuemento`  as contractor,
+                count(*) as count
+                from responsabilidades_fiscales
                 where 1=1
                 {conditions}
-                group by 1,2
+                group by 1
                 {order_by} 
                 {limits};"""
     
     query_result = connection.query_db(query)
-
     result_str = json.dumps(query_result)
 
     func.HttpResponse.mimetype = 'application/json'

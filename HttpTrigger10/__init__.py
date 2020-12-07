@@ -15,14 +15,18 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if department:
         conditions += f" AND DEPARTAMENTO = '{department.upper()}'"
-    query = f"""Select DEPARTAMENTO as department,
+    query = f"""select IFNULL(a.department,'{department.upper()}') as department, b.year,  IFNULL(count,0) as count,IFNULL(total,0) as total  
+				from (Select DEPARTAMENTO as department,
                 year, 
-                CAST(sum(count) AS UNSIGNED) as count,
-                CAST(sum(total) AS UNSIGNED) as total
+                sum(count)  as count,
+                sum(total)  as total
                 from v_secop_departments 
                 where 1=1
                 {conditions}
-                group by 1,2 
+                group by 1,2 ) a 
+                right join
+                (select  year from v_secop_departments group by 1) b
+                on a.year=b.year
                 {order_by} 
                 {limits};"""
     query_result = connection.query_db(query)

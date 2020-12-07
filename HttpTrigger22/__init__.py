@@ -20,8 +20,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     query = f"""select NOMBRE_ENTIDAD AS entity,
                 BASE_DE_DATOS as 'database',
                 ESTADO_DEL_PROCESO as process_status,
-                CAST(sum(count) AS UNSIGNED) as count,
-                CAST(sum(total) AS UNSIGNED) as total
+                sum(count)  as count,
+                sum(total)  as total
                 from v_secop_entities
                 where 1=1
                 {conditions}

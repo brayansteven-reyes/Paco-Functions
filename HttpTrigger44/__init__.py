@@ -10,7 +10,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 count(*)  as count
                 from antecedentes_siri_sanciones
                 union
-                select 'colusiones_contratación_sic' as 'origin',
+                select 'colusiones_contratacion_sic' as 'origin',
                 count(*)  as count
                 from colusiones_contratación_sic
                 union

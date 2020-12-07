@@ -16,8 +16,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if department:
         conditions += f" AND DEPARTAMENTO = '{department.upper()}'"
     query = f"""Select DEPARTAMENTO as department,
-                CAST(sanciones AS UNSIGNED) as count
-                from siri_sanciones_departamento 
+                sanciones  as count
+                from v_siri_department 
                 where 1=1
                 {conditions}
                 {order_by} 

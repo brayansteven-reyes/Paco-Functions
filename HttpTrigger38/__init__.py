@@ -14,8 +14,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     query = f"""select year,
                 base_de_datos as 'database',
-                CAST(sum(count) AS UNSIGNED) as count,
-                CAST(sum(total) AS UNSIGNED) as total
+                sum(count)  as count,
+                sum(total)  as total
                 from v_secop_year
                 where 1=1
                 {conditions}

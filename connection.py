@@ -10,8 +10,8 @@ def get_ssl_cert():
     return certificate
 
 def query_db(query, args=(), one=False):
-    user_name_db = os.environ["pacoDBUser"]
-    password_db = os.environ["pacoDBPassword"]
+    user_name_db = os.environ["paco7db7user"]
+    password_db = os.environ["paco7db7password"]
     cnx = mysql.connector.connect(
         user=user_name_db, 
         password=password_db, 
@@ -28,8 +28,8 @@ def query_db(query, args=(), one=False):
     return (r[0] if r else None) if one else r
 
 def insert_db(query, args=(), one=False):
-    user_name_db = os.environ["pacoDBUser"]
-    password_db = os.environ["pacoDBPassword"]
+    user_name_db = os.environ["paco7db7user"]
+    password_db = os.environ["paco7db7password"]
     cnx = mysql.connector.connect(
         user=user_name_db, 
         password=password_db, 

@@ -18,8 +18,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     query = f"""select ID_CONTRATISTA as contractor_id,
                 BASE_DE_DATOS as 'database',
-                CAST(sum(count) AS UNSIGNED) as count,
-                CAST(sum(total) AS UNSIGNED) as total
+                sum(count)  as count,
+                sum(total)  as total
                 from v_secop_contractor
                 where 1=1
                 {conditions}

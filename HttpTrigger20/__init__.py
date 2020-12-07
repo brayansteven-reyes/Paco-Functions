@@ -16,14 +16,18 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     if entity:
         conditions += f" AND NOMBRE_ENTIDAD = '{entity.upper()}' "
 
-    query = f"""select NOMBRE_ENTIDAD as entity,
+    query = f"""select IFNULL(a.entity,'{entity.upper()}') as entity, b.year,  IFNULL(count,0) as count,IFNULL(total,0) as total  
+				from (select NOMBRE_ENTIDAD as entity,
                 year,
-                CAST(sum(count) AS UNSIGNED) as count,
-                CAST(sum(total) AS UNSIGNED) as total
+                sum(count)  as count,
+                sum(total)  as total
                 from v_secop_entities
                 where 1=1
                 {conditions}
-                group by 1,2
+                group by 1,2) a 
+                right join
+                (select  year from v_secop_entities group by 1) b
+                on a.year=b.year
                 {order_by} 
                 {limits};"""
 

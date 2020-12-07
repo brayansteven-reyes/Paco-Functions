@@ -18,7 +18,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     query = f"""Select TIPO_PROCESO as process_type,
                 count(*) as count,
-                CAST(sum(VALOR_TOTAL_CONTRATO) AS UNSIGNED) as total
+                sum(VALOR_TOTAL_CONTRATO)  as total
                 from contratos 
                 where 1=1
                 {conditions}

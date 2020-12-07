@@ -8,7 +8,7 @@ from .. import query_utils
 def main(req: func.HttpRequest) -> func.HttpResponse:
     # contractor
     contractor_id = req.route_params.get('contractor')
-    sort_values = ['CONTRACTOR','CONTRACTOR_NAME']
+    sort_values = ['CONTRACTOR','CONTRACTOR_NAME','COUNT']
     conditions = query_utils.getCommonCondtions(req)
     order_by = query_utils.getCommontOrderBy(req, sort_values, sort_values[1])
     limits = query_utils.getCommontLimit(req)

@@ -36,7 +36,7 @@ def main(req: func.HttpRequest, sendGridMessage: func.Out[str]) -> func.HttpResp
                 values('{name}','{department}','{municipality}','{title}','{involved}','{facts}','{filename}');"""
     query_result = connection.insert_db(query)
     # Save file
-    pacoStorage = os.environ["pacoStorage"]
+    pacoStorage = os.environ["paco7storage7complaint"]
     blob = BlobClient.from_connection_string(conn_str= pacoStorage, container_name="paco", blob_name="complaints/"+filename)
     blob.upload_blob(filestream.read(), blob_type="BlockBlob")
     

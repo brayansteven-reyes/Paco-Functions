@@ -19,7 +19,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     for year in query_years_result:
         tmp_year = year['year']
         select_year += f"IFNULL(year_{tmp_year},0) as year_{tmp_year}," 
-        months += f" CAST(sum(case when year = {tmp_year} then count else 0 end) AS UNSIGNED) as 'year_{tmp_year}',"
+        months += f" sum(case when year = {tmp_year} then count else 0 end)  as 'year_{tmp_year}',"
     
     select_year = select_year[:len(select_year)-1]
     months = months[:len(months)-1]
@@ -43,7 +43,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                  on b.month=a.month
                 {order_by} 
                 {limits};"""
-                  
+
     query_result = connection.query_db(query)
     result_str = json.dumps(query_result)
 

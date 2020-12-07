@@ -15,7 +15,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
     query_years_result = connection.query_db(query_years)
     for year in query_years_result:
         tmp_year = year['year']
-        months += f" CAST(sum(case when year = {tmp_year} then count else 0 end) AS UNSIGNED) as 'year_{tmp_year}',"
+        months += f" sum(case when year = {tmp_year} then count else 0 end)  as 'year_{tmp_year}',"
 
     months = months[:len(months)-1]
 
