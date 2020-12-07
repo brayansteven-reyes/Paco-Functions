@@ -12,7 +12,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
                 union
                 select 'colusiones_contratacion_sic' as 'origin',
                 count(*)  as count
-                from colusiones_contratación_sic
+                from colusiones_contratacion_sic
                 union
                 select 'multas_secop' as 'origin',
                 count(*)  as count
