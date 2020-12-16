@@ -72,17 +72,17 @@ def main(req: func.HttpRequest, sendGridMessage: func.Out[str]) -> func.HttpResp
     message = {
     "personalizations": [ {
         "to": [{
-        "email": "paco-colombia@outlook.com"
+        "email": "denunciacorrupción@presidencia.gov.co"
         }
         ]}],
     "subject": "PACO - Denuncia ID "+ str(query_result),
     "content": [{
         "type": "text/plain",
         "value": f"""Una denucia fue realizada con ID:{query_result}
-                \n\n Nombre: {name}
+                \n\n Nombre/Entidad: {name}
                 \n Departamento: {department}
                 \n Municipio: {municipality}
-                \n Titulo:{title}
+                \n Asunto:{title}
                 \n Implicados:{involved}
                 \n Descripción hechos:{facts}
                 """
