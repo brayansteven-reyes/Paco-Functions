@@ -6,20 +6,13 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "methods": ["post"],
-      "route": "denuncia"
+      "methods": ["get"],
+      "route": "secop/process_type"
     },
     {
       "type": "http",
       "direction": "out",
       "name": "$return"
-    },
-    {
-      "type": "sendGrid",
-      "name": "sendGridMessage",
-      "direction": "out",
-      "apiKey": "paco7sg7api7key",
-      "from": "brayanreyes@presidencia.gov.co"
     }
   ]
 }
